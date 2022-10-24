@@ -1,5 +1,9 @@
 package com.example.SpringBootCRUD.controller;
 
+import com.example.SpringBootCRUD.dto.UserDTO;
+import com.example.SpringBootCRUD.entity.User;
+import com.example.SpringBootCRUD.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -7,14 +11,17 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin
 
 public class UserController {
+    @Autowired
+    private UserService userService;
+
     @GetMapping("/getUser")
     public String getUser() {
         return "Simple-Root";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser() {
-        return "User Saved";
+    public UserDTO saveUser(@RequestBody UserDTO userDTO) {
+        return userService.saveUser(userDTO);
     }
 
     @PutMapping("/updateUser")
